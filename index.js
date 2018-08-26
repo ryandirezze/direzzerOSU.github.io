@@ -42,15 +42,16 @@ function windowOnClick(event){
    }
 }
 
+var test = document.getElementById("twit_post");
+
 function newPost(){
    var temp = document.getElementById("twit_post");
    var posts = document.querySelector("article");
    var clone = document.importNode(temp.content, true);
    p = clone.querySelectorAll("p");
    p[0].textContent = twit_text;
-   console.log(p[0]);
    p[1].textContent = twit_author;
-   p.InsertBefore(p, posts);
+   // p.InsertBefore(p, posts);
 }
 
 
