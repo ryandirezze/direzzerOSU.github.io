@@ -42,10 +42,16 @@ function windowOnClick(event){
    }
 }
 
-// var temp = document.getElementsByTagName("template");
-// var item = temp.content.querySelector("article");
-// var clone = item.cloneNode(true);
-// var text = clone.
+function newPost(){
+   var temp = document.getElementById("twit_post");
+   var posts = document.querySelector("article");
+   var clone = document.importNode(temp.content, true);
+   p = clone.querySelectorAll("p");
+   p[0].textContent = twit_text;
+   p[1].textContent = twit_author;
+   p.InsertBefore(p, posts);
+}
+
 
 // function createTwit(){
 //    var p-text = document.createElement('p');
@@ -70,3 +76,5 @@ closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 // toggle (close) the modal if the 'cancel' button is clicked in the footer
 cancelButton.addEventListener("click", toggleModal);
+// create a new twitter post
+createButton.addEventListener("click", newPost);
