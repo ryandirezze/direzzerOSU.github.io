@@ -48,6 +48,7 @@ function newPost(){
    var clone = document.importNode(temp.content, true);
    p = clone.querySelectorAll("p");
    p[0].textContent = twit_text;
+   console.log(p[0]);
    p[1].textContent = twit_author;
    p.InsertBefore(p, posts);
 }
