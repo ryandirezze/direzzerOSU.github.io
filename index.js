@@ -77,4 +77,4 @@ window.addEventListener("click", windowOnClick);
 // toggle (close) the modal if the 'cancel' button is clicked in the footer
 cancelButton.addEventListener("click", toggleModal);
 // create a new twitter post
-createButton.addEventListener("click", newPost);
+createButton.addEventListener("click", toggleModal);
