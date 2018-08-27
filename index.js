@@ -44,15 +44,15 @@ function windowOnClick(event){
 
 var test = document.getElementById("twit_post");
 
-function newPost(){
-   var temp = document.getElementById("twit_post");
-   var posts = document.querySelector("article");
-   var clone = document.importNode(temp.content, true);
-   p = clone.querySelectorAll("p");
-   p[0].textContent = twit_text;
-   p[1].textContent = twit_author;
-   // p.InsertBefore(p, posts);
-}
+// function newPost(){
+//    var temp = document.getElementById("twit_post");
+//    var posts = document.querySelector("article");
+//    var clone = document.importNode(temp.content, true);
+//    p = clone.querySelectorAll("p");
+//    p[0].textContent = twit_text;
+//    p[1].textContent = twit_author;
+//    // p.InsertBefore(p, posts);
+// }
 
 function addTwit(event){
    if ((twit_text.value == "") || (twit_author.value == "")){
@@ -76,4 +76,4 @@ window.addEventListener("click", windowOnClick);
 // toggle (close) the modal if the 'cancel' button is clicked in the footer
 cancelButton.addEventListener("click", toggleModal);
 // create a new twitter post
-createButton.addEventListener("click", newPost);
+createButton.addEventListener("click", addTwit);
