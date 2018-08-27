@@ -54,15 +54,12 @@ function newPost(){
    // p.InsertBefore(p, posts);
 }
 
-
-// function createTwit(){
-//    var p-text = document.createElement('p');
-//    p-text.append(twit_text);
-//    var author-text = document.createElement('p');
-//    author-text.append(twit)
-// }
-
-
+function addTwit(event){
+   if ((twit_text.value == "") || (twit_author.value == "")){
+      alert("Uh oh! You haven't specified the Twit's text or author...")
+      // return;
+   }
+}
 
 /*#################################
  "listeners" for certain 'events' #
