@@ -57,7 +57,7 @@ function newPost(){
 function addTwit(event){
    if ((twit_text.value == "") || (twit_author.value == "")){
       alert("Uh oh! You haven't specified the Twit's text or author...")
-      // return;
+      return;
    }
 }
 
