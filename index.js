@@ -44,21 +44,47 @@ function windowOnClick(event){
 
 var test = document.getElementById("twit_post");
 
-// function newPost(){
-//    var temp = document.getElementById("twit_post");
-//    var posts = document.querySelector("article");
-//    var clone = document.importNode(temp.content, true);
-//    p = clone.querySelectorAll("p");
-//    p[0].textContent = twit_text;
-//    p[1].textContent = twit_author;
-//    // p.InsertBefore(p, posts);
-// }
-
 function addTwit(event){
    if ((twit_text.value == "") || (twit_author.value == "")){
       alert("Uh oh! You haven't specified the Twit's text or author...")
       return;
    }
+
+   // recreate 
+   var icon = document.createElement('i');
+   icon.classList.add('fa');
+   icon.classList.add('fa-bullhorn');
+
+   var twitIcon = document.createElement('div');
+   twitIcon.classList.add('twit-icon');
+   twitIcon.appendChild(icon);
+
+   var text = document.createElement('p');
+   text.classList.add('twit-text');
+   text.textContent = twit_author.value;
+
+   var author = document.createElement('a');
+   author.href = '#';
+   author.textContent = twit_author.value;
+
+   var attribution = document.createElement('p');
+   attribution.classList.add('twit-attribution');
+   attribution.appendChild(author);
+
+   var twitContent = document.createElement('div');
+   twitContent.classList.add("twit-content");
+   twitContent.appendChild(text);
+   twitContent.appendChild(attribution);
+
+   var twit = document.createElement('article');
+   twit.classList.add('twit');
+   twit.appendChild(twitIcon);
+   twit.appendChild(twitContent);
+
+   var body = document.getElementsbyClassName('twit-container')[0];
+   body.appendChild(twit);
+
+   toggleModal();
 }
 
 /*#################################
