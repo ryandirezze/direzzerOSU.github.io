@@ -14,7 +14,8 @@ var backdrop = document.getElementById("modal-backdrop");
 var trigger = document.getElementById("create-twit-button");
 var cancelButton = document.querySelector(".modal-cancel-button");
 var closeButton = document.querySelector(".modal-close-button");
-var createButton = document.querySelector(".modal-accept-button");
+// var createButton = document.querySelector(".modal-accept-button");
+var createButton = document.getElementsByClassName("modal-accept-button")[0];
 var twit_text = document.getElementById("twit-text-input");
 var twit_author = document.getElementById("twit-attribution-input");
 
@@ -88,6 +89,9 @@ function addTwit(event){
    toggleModal();
 }
 
+// create a new twitter post
+createButton.addEventListener("click", addTwit);
+
 // searching Twit contents
 function filterTwit(){
    var filterContent = document.getElementById('navbar-search-input');
@@ -121,5 +125,3 @@ closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 // toggle (close) the modal if the 'cancel' button is clicked in the footer
 cancelButton.addEventListener("click", toggleModal);
-// create a new twitter post
-createButton.addEventListener("click", addTwit);
