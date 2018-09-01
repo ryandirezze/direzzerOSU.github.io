@@ -44,13 +44,14 @@ function windowOnClick(event){
 
 var test = document.getElementById("twit_post");
 
+// allows users to create a new Twit
 function addTwit(event){
    if ((twit_text.value == "") || (twit_author.value == "")){
       alert("Uh oh! You haven't specified the Twit's text or author...")
       return;
    }
 
-   // recreate 
+   // recreate Twit container
    var icon = document.createElement('i');
    icon.classList.add('fa');
    icon.classList.add('fa-bullhorn');
@@ -86,6 +87,25 @@ function addTwit(event){
 
    toggleModal();
 }
+
+// searching Twit contents
+function filterTwit(){
+   var filterContent = document.getElementById('navbar-search-input');
+   var TwitContainer = document.getElementsbyClassName('twit-container');
+   var TwitText = document.getElementsbyClassName('twit-content');
+   TwitText.filter(filterContent);
+}
+
+// filter Twit listener
+var searchButton = document.getElementbyId('navbar-search-button');
+searchButton.addEventListener("click", filterTwit);
+
+// // [keyup] searching Twit content
+// const searchBar = document.forms("navbar-search-input").querySelector("input");
+// searchBar.addEventListener('keyup',function(e){
+//    const term = e.target.value.toLowerCase();
+//    const Twits = list.getElementsByTagName()
+// })
 
 /*#################################
  "listeners" for certain 'events' #

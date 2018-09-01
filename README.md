@@ -12,7 +12,7 @@ Here, you are provided with an `index.html` file and a `style.css` file that, co
 
   2. [x] When the modal is open, clicking the modal close button (the small "X" in the upper-right corner) or the modal cancel button (the one in the modal footer that says "Cancel") should close the modal by re-hiding it and the backdrop.  When the modal is closed, the values of all of the input fields should be cleared so they don't appear the next time the modal is opened.
 
-  3. [ ] When the modal is open, clicking the modal accept button (the one in the modal footer that says "Create Twit") should close the modal and generate a new twit that is placed inside the twit container after all of the other existing ones.  The new twit should match the structure of the existing twits so it is styled correctly.  Here is what the structure of the twit should be:
+  3. [x] When the modal is open, clicking the modal accept button (the one in the modal footer that says "Create Twit") should close the modal and generate a new twit that is placed inside the twit container after all of the other existing ones.  The new twit should match the structure of the existing twits so it is styled correctly.  Here is what the structure of the twit should be:
 
       ```
       <article class="twit">
@@ -34,9 +34,9 @@ Here, you are provided with an `index.html` file and a `style.css` file that, co
 
       When the new twit is created and the modal is closed, the values of all of the input fields should be cleared so they don't appear the next time the modal is opened.
 
-  4. If the user clicks the modal accept button while either of the input fields is blank, the user should be alerted (using the `alert()` function), and the modal should be kept open until the user either closes/cancels it or provides values for both input fields.  A new twit should not be created if the user hasn't specified values for both fields.
+  4. [x] If the user clicks the modal accept button while either of the input fields is blank, the user should be alerted (using the `alert()` function), and the modal should be kept open until the user either closes/cancels it or provides values for both input fields.  A new twit should not be created if the user hasn't specified values for both fields.
 
-  5. When the user enters a search query into the search box in the navbar and clicks the search button (the little magnifying glass in the navbar), any twits whose text or author don't contain the specified search query should be removed from the DOM, leaving only the ones that match the search query being displayed.  Don't worry about re-displaying the removed twits if the search query changes.  You can rely on refreshing the page to bring all of the original twits back (newly entered ones will be lost this way).
+  5. [ ] When the user enters a search query into the search box in the navbar and clicks the search button (the little magnifying glass in the navbar), any twits whose text or author don't contain the specified search query should be removed from the DOM, leaving only the ones that match the search query being displayed.  Don't worry about re-displaying the removed twits if the search query changes.  You can rely on refreshing the page to bring all of the original twits back (newly entered ones will be lost this way).
 
 ## Extra credit
 
