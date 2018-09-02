@@ -13,14 +13,14 @@
     <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
     <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
 
-    <script src="/index.js" charset="utf-8" defer></script>
+    <script src="index.js" charset="utf-8" defer></script>
 
   </head>
 
   <body>
 
     <header>
-      <!-- The <i> tag below includes the lizzard hand icon from Font Awesome -->
+      <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
       <a href="#"><h1 class="site-title"><i class="far fa-hand-lizard"></i> tweeter</h1></a>
 
       <nav class="navbar">
@@ -149,6 +149,22 @@
           </p>
         </div>
       </article>
+
+      <template id="twit_post">
+         <article class="twit">
+           <div class="twit-icon">
+             <i class="fa fa-bullhorn"></i>
+           </div>
+           <div class="twit-content">
+             <p class="twit-text">
+               <--! Put the twit text entered by the user here. -->
+             </p>
+             <p class="twit-attribution">
+               <a href="#"><--! Put the twit author entered by the user here. --></a>
+             </p>
+           </div>
+         </article>
+      </template>
 
     </main>
 
