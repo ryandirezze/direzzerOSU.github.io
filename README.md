@@ -36,15 +36,15 @@ Here, you are provided with an `index.html` file and a `style.css` file that, co
 
   4. [x] If the user clicks the modal accept button while either of the input fields is blank, the user should be alerted (using the `alert()` function), and the modal should be kept open until the user either closes/cancels it or provides values for both input fields.  A new twit should not be created if the user hasn't specified values for both fields.
 
-  5. [ ] When the user enters a search query into the search box in the navbar and clicks the search button (the little magnifying glass in the navbar), any twits whose text or author don't contain the specified search query should be removed from the DOM, leaving only the ones that match the search query being displayed.  Don't worry about re-displaying the removed twits if the search query changes.  You can rely on refreshing the page to bring all of the original twits back (newly entered ones will be lost this way).
+  5. [x] When the user enters a search query into the search box in the navbar and clicks the search button (the little magnifying glass in the navbar), any twits whose text or author don't contain the specified search query should be removed from the DOM, leaving only the ones that match the search query being displayed.  Don't worry about re-displaying the removed twits if the search query changes.  You can rely on refreshing the page to bring all of the original twits back (newly entered ones will be lost this way).
 
 ## Extra credit
 
 For extra credit, you may improve the behavior of the search function beyond the specifications above.  Specifically, you can implement the following things:
 
-  * If the user changes the search query and hits the search button, the search should be performed over all of the original twits and any newly added ones.  This means that twits that were removed from the DOM because of a previous search might have to be re-added back into the DOM.  If the user clears the search term completely, all of the original twits and any newly added ones should be displayed again.  In all cases, the twits should always remain in the same order relative to each other.
+  * [x] If the user changes the search query and hits the search button, the search should be performed over all of the original twits and any newly added ones.  This means that twits that were removed from the DOM because of a previous search might have to be re-added back into the DOM.  If the user clears the search term completely, all of the original twits and any newly added ones should be displayed again.  In all cases, the twits should always remain in the same order relative to each other.
 
-  * Hook the search box up so that the search results are updated as the user types into the search box, even without hitting the search button.  In this case, the search results should behave as described just above, with twits being re-added into and removed from the DOM as appropriate.  In other words, each new character inserted or deleted could potentially result in a change to the displayed twits.
+  * [x] Hook the search box up so that the search results are updated as the user types into the search box, even without hitting the search button.  In this case, the search results should behave as described just above, with twits being re-added into and removed from the DOM as appropriate.  In other words, each new character inserted or deleted could potentially result in a change to the displayed twits.
 
 ## Code Blog
 
