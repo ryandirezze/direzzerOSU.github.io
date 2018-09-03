@@ -9,13 +9,13 @@ You are provided with several files in `public/` implementing the Tweeter site w
 
 The file `server.js` is the file you'll work on for this assignment.  Your job is to complete that file to implement a very basic Node-based web server that satisfies the following requirements:
 
-  * First, add your name and oregonstate.edu email address to the header comment in `server.js`, so the TA grading your assignment knows who you are.
+  * [x] First, add your name and oregonstate.edu email address to the header comment in `server.js`, so the TA grading your assignment knows who you are.
 
-  * The server can only use Node's built-in modules (e.g. `http`, `fs`, `path`, etc.), no third-party modules.
+  * [ ] The server can only use Node's built-in modules (e.g. `http`, `fs`, `path`, etc.), no third-party modules.
 
-  * The server should listen for requests on the port specified by the environment variable `PORT`.  If `PORT` is not present in the environment, the server should listen on port 3000 by default.
+  * [?] The server should listen for requests on the port specified by the environment variable `PORT`.  If `PORT` is not present in the environment, the server should listen on port 3000 by default.
 
-  * When someone requests a path from your server that corresponds to the name of one of the files in `public/`, your server should respond with the contents of that file and a status code of 200.  For example, if you run your server on port 3000 on your laptop, you should be able to access the following files by entering the following URLs into your browser:
+  * [ ] When someone requests a path from your server that corresponds to the name of one of the files in `public/`, your server should respond with the contents of that file and a status code of 200.  For example, if you run your server on port 3000 on your laptop, you should be able to access the following files by entering the following URLs into your browser:
     * `public/index.html` - [http://localhost:3000/index.html](http://localhost:3000/index.html)
     * `public/index.js` - [http://localhost:3000/index.js](http://localhost:3000/index.js)
     * `public/style.css` - [http://localhost:3000/style.css](http://localhost:3000/style.css)
@@ -23,11 +23,11 @@ The file `server.js` is the file you'll work on for this assignment.  Your job i
 
     Note that if everything is hooked up correctly, your `index.html` and `404.html` pages will automatically have styles and interactions from `style.css` and `index.js` because the browser will see those files referenced from the HTML and make additional requests for those files.
 
-  * When someone requests the root path (i.e. `/`) from your server, it should respond with the contents of `public/index.html` and a status code of 200.  For example, if you run your server on port 3000 on your laptop and visit [http://localhost:3000](http://localhost:3000) in your laptop's browser, your server should send the contents of `public/index.html`.
+  * [ ] When someone requests the root path (i.e. `/`) from your server, it should respond with the contents of `public/index.html` and a status code of 200.  For example, if you run your server on port 3000 on your laptop and visit [http://localhost:3000](http://localhost:3000) in your laptop's browser, your server should send the contents of `public/index.html`.
 
-  * If someone visits a path on your site that does not correspond to the name of any of the files in `public/`, your server should respond with the contents of `public/404.html` and a status code of 404.  For example, if you run your server on port 3000 on your laptop and visit  [http://localhost:3000/thispagedoesnotexist](http://localhost:3000/thispagedoesnotexist) in your laptop's browser, your server should serve the contents of `public/404.html`.
+  * [ ] If someone visits a path on your site that does not correspond to the name of any of the files in `public/`, your server should respond with the contents of `public/404.html` and a status code of 404.  For example, if you run your server on port 3000 on your laptop and visit  [http://localhost:3000/thispagedoesnotexist](http://localhost:3000/thispagedoesnotexist) in your laptop's browser, your server should serve the contents of `public/404.html`.
 
-  * Your server should read any given file in `public/` from disk only once.  In other words, the contents of each file should be cached in the server's memory after the first read, and the server should use this cache when responding with a file's contents instead of reading the file a second time.  You should add a `console.log()` statement immediately before each call to read a file to prove to yourself that each file is being read only once.
+  * [ ] Your server should read any given file in `public/` from disk only once.  In other words, the contents of each file should be cached in the server's memory after the first read, and the server should use this cache when responding with a file's contents instead of reading the file a second time.  You should add a `console.log()` statement immediately before each call to read a file to prove to yourself that each file is being read only once.
 
 ## Code Blog
 
