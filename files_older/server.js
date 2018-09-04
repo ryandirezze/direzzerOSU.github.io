@@ -15,26 +15,20 @@
 
 // interface
 
-// // without a third party app
-// var http = require("http");
-// var url = require("url");
-// var fs = require("fs");    // fs = file server
-// http.createServer(function(request, response) {
-//    var requestUrl = url.parse(request.url);
-//    response.writeHead(200);
-//    fs.createReadStream(requestUrl.pathname).pipe(response);
-// }).listen(3000);
-
-
-
-// NOTE: server works (w/ module - express)
+var http = require('http');
+var port = process.env.port || 3000;
 var express = require('express');
+var handlebars = require('express3-handlebars');
+var path = require('path');
+
 var app = express();
-var server = app.listen(3000, listening);
-function listening() {
-   console.log("listening...");
-   app.use(express.static('public'));
-}
+app.use(express.static(path.join(__dirname, 'public')));
+app.engine('handlebars', handlbars({ defaultLayout: 'main'}));
+app.get('/', function(request, response) {
+   response.render('index.handlebars', { someProp: 3 });
+});
+
+app.listen(3000);
 
 
 //#################################################################################
