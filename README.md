@@ -1,33 +1,60 @@
-# Assignment 4
-**Assignment and Code Blog entry due at 11:59pm on Monday, 5/21/2018**
+# Assignment 5
+**Assignment and Code Blog entry due at 11:59pm on Monday, 6/4/2018**
 
-**This assignment will not be demoed**
+**Demo due by 5:00pm on Friday, 6/15/2018**
 
-The goal of this assignment is to start to use Node.js and some of its built-in modules to build a very simple web server that serves static content.
+The goal of this assignment is to start working with Handlebars and Express.  The code that's currently in this repo implements a site that's served completely statically.  Specifically, there is a directory `public/` that contains a number of static files that are served by a simple Express server in `server.js`.  Your job in this assignment is to templatize this existing site.  Specifically, you must complete the following tasks:
 
-You are provided with several files in `public/` implementing the Tweeter site we've been working on throughout the course, with the exception of `index.js`.  If you opened the `index.html` file in your browser, you'd see the site you're familiar with by now, with all of its styling and, when you add your own `index.js` file, its interactions.  In addition to your familiar files, you're also provided with a file `404.html`, whose purpose we'll get to in a bit.
+## 1. Implement a twit template and use it on the client side
 
-The file `server.js` is the file you'll work on for this assignment.  Your job is to complete that file to implement a very basic Node-based web server that satisfies the following requirements:
+When the user adds a new twit using the "create twit" button in the current site, the client-side code in `index.js` calls a function `insertNewTwit()`, which uses native JS methods to construct a DOM element representing a new twit based on data passed as arguments to the function and inserts that new twit element into the DOM at the appropriate location.
 
-  * [x] First, add your name and oregonstate.edu email address to the header comment in `server.js`, so the TA grading your assignment knows who you are.
+Your first task in this assignment is to write a Handlebars template to represent a single twit and then to use that template in `insertNewTwit()` instead of the native JS methods currently used to create a new twit and insert it into the DOM.  Here are some specific things you'll have to do to make this happen:
 
-  * [?] The server can only use Node's built-in modules (e.g. `http`, `fs`, `path`, etc.), no third-party modules.
+  * Implement your twit template in its own `.handlebars` file.  You'll use this template in later steps, too.
 
-  * [x] The server should listen for requests on the port specified by the environment variable `PORT`.  If `PORT` is not present in the environment, the server should listen on port 3000 by default.
+  * Add to your `package.json` file a new build script that uses `handlebars` to pre-compile your twit template into a JS file.  Note that you'll need to install `handlebars` as a dependency of your package in order to do this pre-compilation.  Make sure your server process in `server.js` serves this generated JS file, and make sure to hook your build script up so it's run every time you use `npm start` to start the server, just in case you change your template.
 
-  * [ ] When someone requests a path from your server that corresponds to the name of one of the files in `public/`, your server should respond with the contents of that file and a status code of 200.  For example, if you run your server on port 3000 on your laptop, you should be able to access the following files by entering the following URLs into your browser:
-    * `public/index.html` - [http://localhost:3000/index.html](http://localhost:3000/index.html)
-    * `public/index.js` - [http://localhost:3000/index.js](http://localhost:3000/index.js)
-    * `public/style.css` - [http://localhost:3000/style.css](http://localhost:3000/style.css)
-    * `public/404.html` - [http://localhost:3000/404.html](http://localhost:3000/404.html)
+  * Make sure your client-side HTML code includes your generated JS script for the twit template.  Also make sure your client-side HTML code includes the [Handlebars runtime library](https://cdnjs.com/libraries/handlebars.js), so it can actually use your template.
 
-    Note that if everything is hooked up correctly, your `index.html` and `404.html` pages will automatically have styles and interactions from `style.css` and `index.js` because the browser will see those files referenced from the HTML and make additional requests for those files.
+  * Replace the native JS functions currently used in `insertNewTwit()` to build and insert a new twit element with a call to your twit template function, making sure to pass the appropriate arguments into the twit template function.  Note that your twit template function will generate an HTML string, not a DOM element, so you'll have to use a slightly different approach to insert the new twit into the DOM.
 
-  * [ ] When someone requests the root path (i.e. `/`) from your server, it should respond with the contents of `public/index.html` and a status code of 200.  For example, if you run your server on port 3000 on your laptop and visit [http://localhost:3000](http://localhost:3000) in your laptop's browser, your server should send the contents of `public/index.html`.
+## 2. Templatize the twits page to replace `index.html`
 
-  * [ ] If someone visits a path on your site that does not correspond to the name of any of the files in `public/`, your server should respond with the contents of `public/404.html` and a status code of 404.  For example, if you run your server on port 3000 on your laptop and visit  [http://localhost:3000/thispagedoesnotexist](http://localhost:3000/thispagedoesnotexist) in your laptop's browser, your server should serve the contents of `public/404.html`.
+The current site uses a hard-coded page in `index.html` to display a page containing 8 twits.  Your next task in the assignment is to implement a templatized version of this twits page, and to use data stored on the server side to dynamically generate the twits page when a client requests it.  Specifically, you are provided with raw data in `twitData.json` representing the current set of 8 twits.  You should use that data in conjunction with a set of templates you write to replace the functionality `index.html`.  Here are some specific things you'll have to do to make this happen:
 
-  * [ ] Your server should read any given file in `public/` from disk only once.  In other words, the contents of each file should be cached in the server's memory after the first read, and the server should use this cache when responding with a file's contents instead of reading the file a second time.  You should add a `console.log()` statement immediately before each call to read a file to prove to yourself that each file is being read only once.
+  * Implement one or more `.handlebars` template files to replicate the structure of `index.html`.
+    * Your new set of templates can use a layout template if you'd like.  This isn't strictly necessary here, but you'll have to do it eventually to earn full credit for the assignment.
+
+  * In these new templates, instead of hard-coding the twits to be displayed, use the twit template you created in step 1 as a partial to render each twit in an array of twits that's passed as a template argument.
+
+  * In your server process in `server.js`, set up your Express server to use `express-handlebars` as the view engine.  Note that you'll need to install `express-handlebars` as a dependency of your package.
+
+  * Implement a route in your server process for the root path `/`.  Make sure this route's middleware is called before the middleware function that serves `index.html`.  Within this new route, you should respond to the client by using your newly-created template(s) to render the twits page (which should look the same as `index.html`).  In particular, make sure you load the raw twit data from `twitData.json` and pass all of this twit data into your template(s) using the appropriate template argument(s).  When you render the twits page this way, make sure to respond with status 200.
+
+## 3. Templatize the 404 page
+
+The current site contains a route in the server process in `server.js` that responds with a 404 status and an error page hard-coded in `404.html` whenever a client requests an unknown path.  Your next task for the assignment is to turn this 404 page into a template.
+
+There are two ways to do this.  The "easy" way is just to basically copy `404.html` into a new Handlebars template, e.g. `404.handlebars`.  However, if you do this, you'll notice that there is a lot of duplicated code between your 404 template and your twits page template.  To earn full credit, you must templatize all of the elements that are common to both pages and re-use those templates whenever those elements need to be rendered.  Specifically, here are some of the things you'll need to do to accomplish this:
+
+  * Write a layout template that contains the HTML skeleton that's common to both the 404 page and the twits page.  Make sure all of the needed CSS and client-side JS is included in this layout template.  Also make sure you set your server process up to use this layout template.  Remove this HTML skeleton from the 404 and twits page templates, and allow it to be provided via your new layout template.
+
+  * Write a partial representing each of the visual elements that are common to both the 404 page and the twits page, e.g. the page header.  Use these partials to render these elements in each page.  You can go even further than this if you like, writing and using a partial for each discrete "component" in the site, e.g. the create twit button/modal, but this is not necessary.
+
+## 4. Implement a page to render a single twit
+
+Finally, use the twit template you implemented in step 1 to create a new route that displays a single twit.  This route should behave as follows:
+
+  * When a client requests a path of the form `/twits/<n>`, where `<n>` is an integer that is within the bounds of the array of twits stored in `twitData.json` (i.e. `<n>` is between 0 and 7), you should respond with a page that contains only the corresponding twit.  If `<n>` is not within the bounds of the array of twits, or if it's not an integer, you should respond with a 404 status and the 404 page you implemented in step 3.
+
+  * Your single-twit page should contain only the site header and the individual twit that was requested, the following things should not be displayed or even present in the DOM:
+    * Any twits other than the one that was requested.
+    * The "create twit" button.
+    * The "create twit" modal and its backdrop.
+
+  * For full credit, you should use the same template to render both your root path `/` and the `/twits/<n>` path.  You can still earn partial credit by implementing separate templates for each of these paths.
+
 
 ## Code Blog
 
@@ -43,22 +70,22 @@ Add an entry to your Code Blog reflecting on your experience with this assignmen
 
 ## Submission
 
-As always, we'll be using GitHub Classroom for this assignment, and you will submit your assignment via GitHub.  Just make sure your completed files are committed and pushed by the assignment's deadline to the master branch of the GitHub repo that was created for you by GitHub Classroom.  A good way to check whether your files are safely submitted is to look at the master branch your assignment repo on the github.com website (i.e. https://github.com/OSU-CS290-Sp18/assignment-4-YourGitHubUsername/). If your changes show up there, you can consider your files submitted.
+As always, we'll be using GitHub Classroom for this assignment, and you will submit your assignment via GitHub.  Just make sure your completed files are committed and pushed by the assignment's deadline to the master branch of the GitHub repo that was created for you by GitHub Classroom.  A good way to check whether your files are safely submitted is to look at the master branch your assignment repo on the github.com website (i.e. https://github.com/OSU-CS290-Sp18/assignment-5-YourGitHubUsername/). If your changes show up there, you can consider your files submitted.
 
 In addition to submitting your assignment via GitHub, you must submit the URL to your code blog entry (e.g. http://web.engr.oregonstate.edu/~YOUR_ONID_ID/cs290/blog.html) via Canvas by the due date specified above.
 
 ## Grading criteria
 
-Only changes to `server.js` will be considered when grading this assignment.  Changes to other files will be ignored, though you should add the contents of your `index.js` from Assignment 3 to `public/index.js` to get the full effect of the assignment (your `index.js` won't actually be graded).  Note also that when grading, we will not run `npm install` to install third-party modules, so if you used third-party modules in your solution, it probably won't work, and you'll get a bad grade.
-
 The assignment is worth 100 points total:
 
-  * 10 points: server listens on the port specified by the environment variable `PORT` or 3000 by default.
+  * 25 points: the client-side JS uses a pre-compiled twit template to insert new twits, as described above
 
-  * 40 points: server serves files from `public/` with status 200 when corresponding URL path is visited.
+  * 20 points: the server uses your twit template as a partial within a larger template to render the page of all twits on the root path `/`, as described above
 
-  * 20 points: server serves `public/index.html` with status 200 when the root URL path (`/`) is visited.
+  * 10 points: the server uses a template to render the 404 page, as described above
 
-  * 20 points: server serves `public/404.html` with status 404 when a URL path not corresponding to any file in `public/` is visited.
+  * 25 points: the server renders a page displaying a single twit on the path `/twits/<n>`, as described above
 
-  * 10 points: server reads files in `public/` exactly once and caches them.
+  * 10 points: the site is fully templatized, i.e. no HTML code is duplicated; re-used components of the site are written in partials, and the HTML skeleton common to every page is written in a layout
+
+  * 10 points: the same template is used to render both the page displaying all twits (i.e. `/`) and the page displaying a single twit (i.e. `/twits/<n>`)

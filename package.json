@@ -1,19 +1,28 @@
 {
-  "name": "master-assignment-4",
+  "name": "master-assignment-5",
   "version": "1.0.0",
-  "description": "Simple Node.js-based file server",
+  "description": "Handlebars templating",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OSU-CS290-Sp18/master-assignment-4.git"
+    "url": "git+https://github.com/OSU-CS290-Sp18/master-assignment-5.git"
   },
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/OSU-CS290-Sp18/master-assignment-4/issues"
+    "url": "https://github.com/OSU-CS290-Sp18/master-assignment-5/issues"
   },
-  "homepage": "https://github.com/OSU-CS290-Sp18/master-assignment-4#readme"
+  "homepage": "https://github.com/OSU-CS290-Sp18/master-assignment-5#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "handlebars": "^4.0.12"
+  },
+  "devDependencies": {}
 }
+
+/* "scripts": {
+   "build": "handlebars..."
+} */

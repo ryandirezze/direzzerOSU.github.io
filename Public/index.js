@@ -1,109 +1,324 @@
 /*
- * Add the contents of your index.js file from Assignment 3 here to see the
- * interactions you implemented.
+ * Write your client-side JS code in this file.  Make sure to add your name and
+ * @oregonstate.edu email address below.
+ *
+ * Name:
+ * Email:
  */
 
-// alert('Add the content of your index.js from Assignment 3 to public/index.js.');
 
 /*
- * Add your JavaScript to this file to complete the assignment.
+ * This function should use your Handlebars twit template to generate HTML
+ * representing a single twit, given the twit text and author as arguments to
+ * the function.  The generated HTML should then be inserted into the DOM at
+ * the end of the <main> element whose class is "twit-container".
+ *
+ * The function currently uses native JS methods to generate a new DOM element
+ * representing single twit, given the specified information, and inserts that
+ * twit into the DOM.  The new post element has the following structure:
+ *
+ * <article class="twit">
+ *   <div class="twit-icon">
+ *     <i class="fa fa-bullhorn"></i>
+ *   </div>
+ *   <div class="twit-content">
+ *     <p class="twit-text">
+ *       <TWIT_TEXT>
+ *     </p>
+ *     <p class="twit-attribution">
+ *       <a href="#"><TWIT_AUTHOR></a>
+ *     </p>
+ *   </div>
+ * </article>
  */
-var button = document.getElementById("create-twit-button");
-var modalBackdrop = document.getElementById("modal-backdrop");
-var modal = document.getElementById("create-twit-modal");
-var modalCancelButton  = document.getElementsByClassName("modal-cancel-button")[0];
-var modalCloseButton = document.getElementsByClassName("modal-close-button")[0];
-var modalAcceptButton = document.getElementsByClassName("modal-accept-button")[0];
-var twitText = document.getElementById("twit-text-input");
-var twitAuthor = document.getElementById("twit-attribution-input");
-var twitSearch = document.getElementById("navbar-search-input");
-var twitSearchButton = document.getElementById("navbar-search-button")
+function insertNewTwit(twitText, twitAuthor) {
 
-// toggles whether the 'create Twit' modal appears or not
-function modalToggle(event) {
-  if (modal.classList.contains("hidden")) {
-    twitText.value = "";
-    twitText.placeholder = "Enter your Twit here...";
-    twitAuthor.value = "";
-    modal.classList.remove('hidden');
-    modalBackdrop.classList.remove('hidden');
-  }
-  else {
-    modal.classList.add('hidden');
-    modalBackdrop.classList.add('hidden');
+  // Create a new twit <article> element.
+  var twitElem = document.createElement('article');
+  twitElem.classList.add('twit');
+
+  /*
+   * Create a new twit-icon <div> element, insert bullborn with innerHTML
+   * (which is safe in this case because we're not dealing with user input),
+   * and add the div into the new twit element.
+   */
+  var twitIconElem = document.createElement('div');
+  twitIconElem.classList.add('twit-icon');
+  twitIconElem.innerHTML = '<i class="fa fa-bullhorn"></i>';
+  twitElem.appendChild(twitIconElem);
+
+  /*
+   * Create a new twit-content <div> element, and insert it into the new twit
+   * element.
+   */
+  var twitContentElem = document.createElement('div');
+  twitContentElem.classList.add('twit-content');
+  twitElem.appendChild(twitContentElem);
+
+  /*
+   * Create a new twit-text <p> element and add to it a text node containing
+   * the twit text value specified by the user.  Add the twit-text <p> element
+   * into the twit-content element.
+   */
+  var twitTextNode = document.createTextNode(twitText);
+  var twitTextElem = document.createElement('p');
+  twitTextElem.classList.add('twit-text');
+  twitTextElem.appendChild(twitTextNode);
+  twitContentElem.appendChild(twitTextElem);
+
+  /*
+   * Create a new twit-attribution <p> element and add to it an <a> element
+   * that itself contains a text node with the twit attribution value
+   * specified by the user.  Add the twit-attribution <p> element into the
+   * twit-content element.
+   */
+  var twitAttributionTextNode = document.createTextNode(twitAuthor);
+  var twitAttributionLinkElem = document.createElement('a');
+  twitAttributionLinkElem.href = '#';
+  twitAttributionLinkElem.appendChild(twitAttributionTextNode);
+  var twitAttributionElem = document.createElement('p');
+  twitAttributionElem.classList.add('twit-attribution');
+  twitAttributionElem.appendChild(twitAttributionLinkElem);
+  twitContentElem.appendChild(twitAttributionElem);
+
+  var twitContainer = document.querySelector('main.twit-container');
+  twitContainer.appendChild(twitElem);
+
+}
+
+
+/***************************************************************************
+ **
+ ** You should not modify any of the code below.
+ **
+ ***************************************************************************/
+
+/*
+ * This is a global array containing an object representing each twit.  Each
+ * twit object has the following form:
+ *
+ * {
+ *   text: "...",
+ *   author: "..."
+ * }
+ */
+var allTwits = [];
+
+/*
+ * This function checks whether all of the required inputs were supplied by
+ * the user and, if so, inserts a new twit into the page using these inputs.
+ * If the user did not supply a required input, they instead recieve an alert,
+ * and no new twit is inserted.
+ */
+function handleModalAcceptClick() {
+
+  var twitText = document.getElementById('twit-text-input').value;
+  var twitAuthor = document.getElementById('twit-attribution-input').value;
+
+  /*
+   * Only generate the new twit if the user supplied values for both the twit
+   * text and the twit attribution.  Give them an alert if they didn't.
+   */
+  if (twitText && twitAuthor) {
+
+    allTwits.push({
+      text: twitText,
+      author: twitAuthor
+    });
+
+    clearSearchAndReinsertTwits();
+
+    hideCreateTwitModal();
+
+  } else {
+
+    alert('You must specify both the text and the author of the twit!');
+
   }
 }
 
-// allow users to add a Twit to the page
-function addTwit(event) {
-  if ((twitText.value == "") || (twitAuthor.value == "")) {
-    alert("You have not entered a value for either text or author")
-    return;
+
+/*
+ * This function clears the current search term, causing all twits to be
+ * re-inserted into the DOM.
+ */
+function clearSearchAndReinsertTwits() {
+
+  document.getElementById('navbar-search-input').value = "";
+  doSearchUpdate();
+
+}
+
+
+/*
+ * This function shows the modal to create a twit when the "create twit"
+ * button is clicked.
+ */
+function showCreateTwitModal() {
+
+  var modalBackdrop = document.getElementById('modal-backdrop');
+  var createTwitModal = document.getElementById('create-twit-modal');
+
+  // Show the modal and its backdrop.
+  modalBackdrop.classList.remove('hidden');
+  createTwitModal.classList.remove('hidden');
+
+}
+
+
+/*
+ * This function clears any value present in any of the twit input elements.
+ */
+function clearTwitInputValues() {
+
+  var twitInputElems = document.getElementsByClassName('twit-input-element');
+  for (var i = 0; i < twitInputElems.length; i++) {
+    var input = twitInputElems[i].querySelector('input, textarea');
+    input.value = '';
   }
 
-  var icon = document.createElement('i');
-  icon.classList.add('fa');
-  icon.classList.add('fa-bullhorn');
-
-  var twitIcon = document.createElement('div');
-  twitIcon.classList.add('twit-icon');
-  twitIcon.appendChild(icon);
-
-  var text = document.createElement('p');
-  text.classList.add('twit-text');
-  text.textContent = twitText.value;
-
-  var author = document.createElement('a');
-  author.href = '#';
-  author.textContent = twitAuthor.value;
-
-  var attribution = document.createElement('p');
-  attribution.classList.add('twit-attribution');
-  attribution.appendChild(author);
-
-  var twitContent = document.createElement('div');
-  twitContent.classList.add("twit-content");
-  twitContent.appendChild(text);
-  twitContent.appendChild(attribution);
-
-
-  var twit = document.createElement('article');
-  twit.classList.add('twit');
-  twit.appendChild(twitIcon);
-  twit.appendChild(twitContent);
-
-  var body = document.getElementsByClassName('twit-container')[0];
-  body.appendChild(twit);
-
-  modalToggle();
 }
 
-// keyup search filtering
-function search(event){
-   // define other variables for filtering/searching
-   var input, filter, ul, li, a, i;
-   input = document.getElementById('navbar-search-input');
-   filter = input.value.toLowerCase();
-   twit = document.getElementsByClassName('twit');
-   text = document.getElementsByTagName("p");
-   var txt = document.getElementsByClassName("twit-text");
-   var auth = document.getElementsByClassName("twit-attribution");
 
-   // loop through all list items, and hide those who don't match the search query
-   for(i = 0; i < twit.length; i++){
-      // NOTE: with childNodes, the DOM is counted, and the DOM's text is counted as well
-      if(twit[i].childNodes[3].childNodes[1].textContent.toLowerCase().includes(filter) || twit[i].childNodes[3].childNodes[3].textContent.toLowerCase().includes(filter)){
-         twit[i].style.display = "";
-      }
-      else{
-         twit[i].style.display = "none";
-      }
-   }
+/*
+ * This function hides the modal to create a twit and clears any existing
+ * values from the input fields whenever any of the modal close actions are
+ * taken.
+ */
+function hideCreateTwitModal() {
+
+  var modalBackdrop = document.getElementById('modal-backdrop');
+  var createTwitModal = document.getElementById('create-twit-modal');
+
+  // Hide the modal and its backdrop.
+  modalBackdrop.classList.add('hidden');
+  createTwitModal.classList.add('hidden');
+
+  clearTwitInputValues();
+
 }
 
-button.addEventListener('click', modalToggle);
-modalCancelButton.addEventListener('click', modalToggle);
-modalCloseButton.addEventListener('click', modalToggle);
-modalAcceptButton.addEventListener('click', addTwit);
-twitSearchButton.addEventListener('click', search);
-twitSearch.addEventListener('keyup', search);
+
+/*
+ * A function that determines whether a given twit matches a search query.
+ * Returns true if the twit matches the query and false otherwise.
+ */
+function twitMatchesSearchQuery(twit, searchQuery) {
+  /*
+   * An empty query matches all twits.
+   */
+  if (!searchQuery) {
+    return true;
+  }
+
+  /*
+   * The search query matches the twit if either the twit's text or the twit's
+   * author contains the search query.
+   */
+  searchQuery = searchQuery.trim().toLowerCase();
+  return (twit.author + " " + twit.text).toLowerCase().indexOf(searchQuery) >= 0;
+}
+
+
+/*
+ * Perform a search over over all the twits based on the search query the user
+ * entered in the navbar.  Only display twits that match the search query.
+ * Display all twits if the search query is empty.
+ */
+function doSearchUpdate() {
+
+  /*
+   * Grab the search query from the navbar search box.
+   */
+  var searchQuery = document.getElementById('navbar-search-input').value;
+
+  /*
+   * Remove all twits from the DOM temporarily.
+   */
+  var twitContainer = document.querySelector('.twit-container');
+  if (twitContainer) {
+    while (twitContainer.lastChild) {
+      twitContainer.removeChild(twitContainer.lastChild);
+    }
+  }
+
+  /*
+   * Loop through the collection of all twits and add twits back into the DOM
+   * if they match the current search query.
+   */
+  allTwits.forEach(function (twit) {
+    if (twitMatchesSearchQuery(twit, searchQuery)) {
+      insertNewTwit(twit.text, twit.author);
+    }
+  });
+
+}
+
+
+/*
+ * This function parses an existing DOM element representing a single twit
+ * into an object representing that twit and returns that object.  The object
+ * is structured like this:
+ *
+ * {
+ *   text: "...",
+ *   author: "..."
+ * }
+ */
+function parseTwitElem(twitElem) {
+
+  var twit = {};
+
+  var twitTextElem = twitElem.querySelector('.twit-text');
+  twit.text = twitTextElem.textContent.trim();
+
+  var twitAttributionLinkElem = twitElem.querySelector('.twit-attribution a');
+  twit.author = twitAttributionLinkElem.textContent.trim();
+
+  return twit;
+
+}
+
+
+/*
+ * Wait until the DOM content is loaded, and then hook up UI interactions, etc.
+ */
+window.addEventListener('DOMContentLoaded', function () {
+
+  // Remember all of the existing twits in an array that we can use for search.
+  var twitElemsCollection = document.getElementsByClassName('twit');
+  for (var i = 0; i < twitElemsCollection.length; i++) {
+    allTwits.push(parseTwitElem(twitElemsCollection[i]));
+  }
+
+  var createTwitButton = document.getElementById('create-twit-button');
+  if (createTwitButton) {
+    createTwitButton.addEventListener('click', showCreateTwitModal);
+  }
+
+  var modalCloseButton = document.querySelector('#create-twit-modal .modal-close-button');
+  if (modalCloseButton) {
+    modalCloseButton.addEventListener('click', hideCreateTwitModal);
+  }
+
+  var modalCancalButton = document.querySelector('#create-twit-modal .modal-cancel-button');
+  if (modalCancalButton) {
+    modalCancalButton.addEventListener('click', hideCreateTwitModal);
+  }
+
+  var modalAcceptButton = document.querySelector('#create-twit-modal .modal-accept-button');
+  if (modalAcceptButton) {
+    modalAcceptButton.addEventListener('click', handleModalAcceptClick);
+  }
+
+  var searchButton = document.getElementById('navbar-search-button');
+  if (searchButton) {
+    searchButton.addEventListener('click', doSearchUpdate);
+  }
+
+  var searchInput = document.getElementById('navbar-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', doSearchUpdate);
+  }
+
+});
