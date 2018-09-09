@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
  Your job is to complete that file to implement a very basic Node-based
  web server that satisfies the following requirements...
 
@@ -44,3 +45,27 @@ var app = express();    // this is an application object
 app.listen(3000, function() {
    console.log("== Server is listening on port 3000");
 })
+=======
+ * Write your routing code in this file.  Make sure to add your name and
+ * @oregonstate.edu email address below.
+ *
+ * Name:
+ * Email:
+ */
+
+var path = require('path');
+var express = require('express');
+
+var app = express();
+var port = process.env.PORT || 3000;
+
+app.use(express.static('public'));
+
+app.get('*', function (req, res) {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+app.listen(port, function () {
+  console.log("== Server is listening on port", port);
+});
+>>>>>>> d3f7636a9b4e37b7e17bd395381f8f8b2a89fc2a
