@@ -8,8 +8,8 @@
 
 var JSON = require('json');
 var Handlebars = require('handlebars');
-var template = document.getElementById("handlebars-template");
-var compiled = Handlebars.compile(template);
+// var template = document.getElementById("handlebars-template");
+// var compiled = Handlebars.compile(template);
 
 // json
 var json_array =
