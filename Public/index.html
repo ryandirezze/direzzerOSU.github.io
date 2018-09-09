@@ -8,12 +8,35 @@
     <!-- This is a stylesheet that includes the font you should use: Roboto -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css" media="screen">
+    <link rel="stylesheet" href="style.css" media="screen">
 
     <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
     <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
 
-    <script src="/index.js" charset="utf-8" defer></script>
+    <!-- handlebars runtime library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.runtime.js"></script>
+    <script src="/public/insertNewTwitTemplate.js"></script>
+    <script src="index.js" charset="utf-8" defer></script>
+
+    <script id="handlebars-template" type="text/x-handlebars-template">
+       <article class="twit">
+          <div class="twit-icon">
+            <i class="fa fa-bullhorn"></i>
+          </div>
+          <div class="twit-content">
+            {{#each text}}
+               <p class="twit-text">
+                 {{TWIT_TEXT}}
+               </p>
+            {{/each}}
+            <p class="twit-attribution">
+               {{#each author}}
+                  <a href="#">{{TWIT_AUTHOR}}</a>
+               {{/each}}
+            </p>
+          </div>
+       </article>
+    </script>
 
   </head>
 
@@ -38,7 +61,7 @@
 
     <main class="twit-container">
 
-      <article class="twit">
+      <!-- <article class="twit">
         <div class="twit-icon">
           <i class="fas fa-bullhorn"></i>
         </div>
@@ -148,7 +171,7 @@
             <a href="#">TheIRS</a>
           </p>
         </div>
-      </article>
+      </article> -->
 
     </main>
 
