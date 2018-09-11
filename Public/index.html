@@ -13,30 +13,7 @@
     <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
     <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
 
-    <!-- handlebars runtime library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.runtime.js"></script>
-    <script src="/public/insertNewTwitTemplate.js"></script>
     <script src="index.js" charset="utf-8" defer></script>
-
-    <!-- <script id="handlebars-template" type="text/x-handlebars-template">
-       <article class="twit">
-          <div class="twit-icon">
-            <i class="fa fa-bullhorn"></i>
-          </div>
-          <div class="twit-content">
-            {{#each text}}
-               <p class="twit-text">
-                 {{TWIT_TEXT}}
-               </p>
-            {{/each}}
-            <p class="twit-attribution">
-               {{#each author}}
-                  <a href="#">{{TWIT_AUTHOR}}</a>
-               {{/each}}
-            </p>
-          </div>
-       </article>
-    </script> -->
 
   </head>
 
@@ -61,7 +38,7 @@
 
     <main class="twit-container">
 
-      <!-- <article class="twit">
+      <article class="twit">
         <div class="twit-icon">
           <i class="fas fa-bullhorn"></i>
         </div>
@@ -171,7 +148,38 @@
             <a href="#">TheIRS</a>
           </p>
         </div>
-      </article> -->
+      </article>
+
+      <!-- Handlebars content -->
+      <script id="Twit-template" type="text/x-handlebars-template">
+         <article class="twit">
+            <div class="twit-icon">
+              <i class="fa fa-bullhorn"></i>
+            </div>
+            <div class="twit-content">
+              <p class="twit-text">
+                {{text}}
+              </p>
+              <p class="twit-attribution">
+                <a href="#">{{author}}</a>
+              </p>
+            </div>
+         </article>
+      </script>
+      <script src="handlebars.js"></script>
+      <script>
+      window.onload = function() {
+         var source = document.getElementById("Twit-template").innerHTML;
+         var template = Handlebars.compile(source);
+         var context =
+           {
+             text: "Sitting in web dev... This class is so awesome!",
+             author: "CSMajor2018"
+           };
+         var output = template(context);
+         document.getElementsByClassName("twit-container").appendChild(output);
+      }
+      </script>
 
     </main>
 
