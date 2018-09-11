@@ -4,8 +4,31 @@
  *
  * Name:
  * Email:
- */
+*/
 
+var JSON = require('json');
+var Handlebars = require('handlebars');
+
+var context = JSON.parse("./twitData.json");
+// var data = JSON.parse(json_array);
+
+var html = compiled(json_array);
+
+// var twitHTML = Handlebars.templates.insertNewTwitTemplate(json_array);
+
+var twitContainer = document.getElementsByClassName("twit-container");
+// twitContainer.insertAdjacentHTML('beforeend', twitHTML);
+
+function insertNewTwit(twitText, twitAuthor) {
+   var twitHTML = Handlebars.templates.insertNewTwitTemplate({
+      twitText: text;
+      twitAuthor: author;
+   });
+
+   var twitContainer = document.querySelector('main.twit-container');
+   twitContainer.insertAdjacentHTML('beforeend', twitHTML);
+
+}
 
 /*
  * This function should use your Handlebars twit template to generate HTML
@@ -31,60 +54,60 @@
  *   </div>
  * </article>
  */
-function insertNewTwit(twitText, twitAuthor) {
-
-  // Create a new twit <article> element.
-  var twitElem = document.createElement('article');
-  twitElem.classList.add('twit');
-
-  /*
-   * Create a new twit-icon <div> element, insert bullborn with innerHTML
-   * (which is safe in this case because we're not dealing with user input),
-   * and add the div into the new twit element.
-   */
-  var twitIconElem = document.createElement('div');
-  twitIconElem.classList.add('twit-icon');
-  twitIconElem.innerHTML = '<i class="fa fa-bullhorn"></i>';
-  twitElem.appendChild(twitIconElem);
-
-  /*
-   * Create a new twit-content <div> element, and insert it into the new twit
-   * element.
-   */
-  var twitContentElem = document.createElement('div');
-  twitContentElem.classList.add('twit-content');
-  twitElem.appendChild(twitContentElem);
-
-  /*
-   * Create a new twit-text <p> element and add to it a text node containing
-   * the twit text value specified by the user.  Add the twit-text <p> element
-   * into the twit-content element.
-   */
-  var twitTextNode = document.createTextNode(twitText);
-  var twitTextElem = document.createElement('p');
-  twitTextElem.classList.add('twit-text');
-  twitTextElem.appendChild(twitTextNode);
-  twitContentElem.appendChild(twitTextElem);
-
-  /*
-   * Create a new twit-attribution <p> element and add to it an <a> element
-   * that itself contains a text node with the twit attribution value
-   * specified by the user.  Add the twit-attribution <p> element into the
-   * twit-content element.
-   */
-  var twitAttributionTextNode = document.createTextNode(twitAuthor);
-  var twitAttributionLinkElem = document.createElement('a');
-  twitAttributionLinkElem.href = '#';
-  twitAttributionLinkElem.appendChild(twitAttributionTextNode);
-  var twitAttributionElem = document.createElement('p');
-  twitAttributionElem.classList.add('twit-attribution');
-  twitAttributionElem.appendChild(twitAttributionLinkElem);
-  twitContentElem.appendChild(twitAttributionElem);
-
-  var twitContainer = document.querySelector('main.twit-container');
-  twitContainer.appendChild(twitElem);
-
-}
+// function insertNewTwit(twitText, twitAuthor) {
+//
+//   // Create a new twit <article> element.
+//   var twitElem = document.createElement('article');
+//   twitElem.classList.add('twit');
+//
+//   /*
+//    * Create a new twit-icon <div> element, insert bullborn with innerHTML
+//    * (which is safe in this case because we're not dealing with user input),
+//    * and add the div into the new twit element.
+//    */
+//   var twitIconElem = document.createElement('div');
+//   twitIconElem.classList.add('twit-icon');
+//   twitIconElem.innerHTML = '<i class="fa fa-bullhorn"></i>';
+//   twitElem.appendChild(twitIconElem);
+//
+//   /*
+//    * Create a new twit-content <div> element, and insert it into the new twit
+//    * element.
+//    */
+//   var twitContentElem = document.createElement('div');
+//   twitContentElem.classList.add('twit-content');
+//   twitElem.appendChild(twitContentElem);
+//
+//   /*
+//    * Create a new twit-text <p> element and add to it a text node containing
+//    * the twit text value specified by the user.  Add the twit-text <p> element
+//    * into the twit-content element.
+//    */
+//   var twitTextNode = document.createTextNode(twitText);
+//   var twitTextElem = document.createElement('p');
+//   twitTextElem.classList.add('twit-text');
+//   twitTextElem.appendChild(twitTextNode);
+//   twitContentElem.appendChild(twitTextElem);
+//
+//   /*
+//    * Create a new twit-attribution <p> element and add to it an <a> element
+//    * that itself contains a text node with the twit attribution value
+//    * specified by the user.  Add the twit-attribution <p> element into the
+//    * twit-content element.
+//    */
+//   var twitAttributionTextNode = document.createTextNode(twitAuthor);
+//   var twitAttributionLinkElem = document.createElement('a');
+//   twitAttributionLinkElem.href = '#';
+//   twitAttributionLinkElem.appendChild(twitAttributionTextNode);
+//   var twitAttributionElem = document.createElement('p');
+//   twitAttributionElem.classList.add('twit-attribution');
+//   twitAttributionElem.appendChild(twitAttributionLinkElem);
+//   twitContentElem.appendChild(twitAttributionElem);
+//
+//   var twitContainer = document.querySelector('main.twit-container');
+//   twitContainer.appendChild(twitElem);
+//
+// }
 
 
 /***************************************************************************

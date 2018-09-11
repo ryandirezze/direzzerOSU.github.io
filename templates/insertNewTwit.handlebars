@@ -3,11 +3,15 @@
      <i class="fa fa-bullhorn"></i>
    </div>
    <div class="twit-content">
-     <p class="twit-text">
-       {{TWIT_TEXT}}
-     </p>
+      {{#each text}}
+        <p class="twit-text">
+          {{this}}
+        </p>
+      {{/each}}
      <p class="twit-attribution">
-       <a href="#">{{TWIT_AUTHOR}}</a>
+         {{#each author}}
+            <a href="#">{{this}}</a>
+         {{/each}}
      </p>
    </div>
 </article>
