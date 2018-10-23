@@ -1,0 +1,94 @@
+<!-- Make sure that /usr/local/bin is in your $PATH. -->
+<!-- /usr/local/lib/node_modules/handlebars/bin/handlebars -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+     <title>Hello Handlebars</title>
+     <script src="handlebars-v4.0.12.js"></script>
+  </head>
+
+  <body>
+
+
+     <!-- ########################## Example #1 ############################## -->
+
+     <!-- <div id="ryanData"></div> -->
+     <!-- <script type="text/javascript">
+
+     var myInfo = "<p>My name is {{name}} and I live at {{street}} in {{city}}, \
+     {{state}}</p>";
+
+     var template = Handlebars.compile(myInfo);
+
+     var data = template({name: "Ryan", street: "2005 185th PL SE, Apt. O203",
+     city: "Bothell", state: "WA"});
+
+     document.getElementById("ryanData").innerHTML += data;
+      </script> -->
+
+     <!-- ########################## Example #2 ############################## -->
+
+     <!-- <div id="quoteData"></div>
+
+     <script id="quote-template" type="text/x-handlebars-template">
+        <h3>Favorite {{name}} Quotes</h3>
+        <ol>
+           {{#each quotes}}
+           <li>{{quote}}</li>
+           {{/each}}
+       </ol>
+     </script>
+
+     <script type="text/javascript">
+        var quoteInfo = document.getElementById("quote-template").innerHTML;
+        var template = Handlebars.compile(quoteInfo);
+        var quoteData = template({
+           name: "Ryan DiRezze",
+           quotes: [
+              {quote: "test1"},
+              {quote: "test2"}
+           ]
+        });
+
+        document.getElementById("quoteData").innerHTML += quoteData;
+
+     </script> -->
+
+     <!-- ########################## Example #3 ############################## -->
+
+     <div id="quoteData"></div>
+
+     <script id="quote-template" type="text/x-handlebars-template">
+       <h3>Favorite {{name}} Quotes</h3>
+       <ol>
+          {{#each quotes}}
+          <li>{{quote}}</li>
+          {{/each}}
+      </ol>
+
+      <!-- triple shash enables the italics -->
+      {{{yogiBio}}}<br /><br />
+
+     </script>
+
+     <script type="text/javascript">
+       var quoteInfo = document.getElementById("quote-template").innerHTML;
+       var template = Handlebars.compile(quoteInfo);
+       var quoteData = template({
+          name: "Ryan DiRezze",
+          quotes: [
+             {quote: "test1"},
+             {quote: "test2"}
+          ],
+          // italic bio for yogi berra
+          yogiBio: '<i>Woah... Uh-suh, dude...</i>'
+       });
+
+       document.getElementById("quoteData").innerHTML.appendChild(quoteData);
+
+     </script>
+
+  </body>
+</html>

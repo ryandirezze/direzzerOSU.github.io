@@ -6,45 +6,46 @@
  * Email:
  */
 
-var template = document.getElementById("twit-template");
-var context =
-// [
-  {
-    "text": "Sitting in web dev... This class is so awesome!",
-    "author": "CSMajor2018"
-};
-//   {
-//     "text": "Anyone watch the baseball game last night?  The Beavs are still in 1st place!",
-//     "author": "BeaverBeliever"
-//   },
-//   {
-//     "text": "A body in motion must remain in motion unless acted upon by an outside force.",
-//     "author": "NewtonRulez"
-//   },
-//   {
-//     "text": "Huh?",
-//     "author": "ConfusedTweeterer"
-//   },
-//   {
-//     "text": "Why did the calf cross the road?",
-//     "author": "Setup"
-//   },
-//   {
-//     "text": "To get to the udder side!",
-//     "author": "Punchline"
-//   },
-//   {
-//     "text": "Any questions about flexboxes?",
-//     "author": "Hess"
-//   },
-//   {
-//     "text": "Friendly reminder: your taxes were due yesterday.",
-//     "author": "TheIRS"
-//   }
-// ];
+var template = document.getElementById("twit-template").innerHTML;
 var templateScript = Handlebars.compile(template);
-var container = document.getElementsByClassName("twit-container");
-container.append(templateScript);
+var context = {
+   "twits": [
+     {
+       "text": "Sitting in web dev... This class is so awesome!",
+       "author": "CSMajor2018"
+     },
+     {
+       "text": "Anyone watch the baseball game last night?  The Beavs are still in 1st place!",
+       "author": "BeaverBeliever"
+     },
+     {
+       "text": "A body in motion must remain in motion unless acted upon by an outside force.",
+       "author": "NewtonRulez"
+     },
+     {
+       "text": "Huh?",
+       "author": "ConfusedTweeterer"
+     },
+     {
+       "text": "Why did the calf cross the road?",
+       "author": "Setup"
+     },
+     {
+       "text": "To get to the udder side!",
+       "author": "Punchline"
+     },
+     {
+       "text": "Any questions about flexboxes?",
+       "author": "Hess"
+     },
+     {
+       "text": "Friendly reminder: your taxes were due yesterday.",
+       "author": "TheIRS"
+     }
+   ]
+};
+
+document.getElementsByClassName("twit-container").innerHTML.appendChild(templateScript.innerHTML);
 
 /*
  * This function should use your Handlebars twit template to generate HTML
