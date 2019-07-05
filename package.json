@@ -1,26 +1,47 @@
 {
-  "name": "master-assignment-5",
-  "version": "1.0.0",
-  "description": "Handlebars templating",
+  "name": "taborek-treasures",
+  "version": "0.0.0",
+  "description": "Taborek Treasures",
   "main": "server.js",
+  "author": "Ryan A DiRezze",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "handlebars templates/insertNewTwit.handlebars -f public/insertNewTwitTemplate.js",
-    "prestart": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OSU-CS290-Sp18/master-assignment-5.git"
+    "url": "git+https://github.com/direzzerOSU/Taborek-Treasures.git"
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OSU-CS290-Sp18/master-assignment-5/issues"
+    "url": "https://github.com/direzzerOSU/Taborek-Treasures/issues"
   },
-  "homepage": "https://github.com/OSU-CS290-Sp18/master-assignment-5#readme",
+  "homepage": "https://github.com/direzzerOSU/Taborek-Treasures#readme",
   "dependencies": {
-    "express": "^4.16.3"
-  },
-  "devDependencies": {}
+    "base64-img": "^1.0.4",
+    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "buffer": "^5.2.1",
+    "connect-flash": "^0.1.1",
+    "connect-roles": "^3.1.2",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.16.2",
+    "express-validator": "^5.3.1",
+    "handlebars-helpers": "^0.10.0",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "multer-gridfs-storage": "^3.2.3",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "sequelize": "^5.8.9"
+  }
 }
