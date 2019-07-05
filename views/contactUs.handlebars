@@ -1,0 +1,48 @@
+<!--
+    * Name: Ryan DiRezze
+    * HW Assignment: Website Project - Consulting Services Company
+    * File Description: Form for users to contact Spartan Consulting
+    * Due Date: May 26, 2019 (05/26/2019)
+-->
+
+<br />
+<aside id="info-block">
+    <div class="form">
+        <!--<form method="post" action="/sendData">--> <!--"http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php">-->
+        <form method="post" action="http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php">
+
+            <label>First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Your first name..." /><br />
+
+            <label>Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Your last name..." /><br />
+
+            <label>Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="555-555-5555..." /><br />
+
+            <label>Email</label>
+            <input type="text" id="email" name="email" placeholder="Your email address..." /><br />
+
+            <label>Country</label>
+            <select required id="country" name="country" onchange="addCountryField();">
+                <option value="" disabled selected>Please Choose...</option>
+                <option value="usa">USA</option>
+                <option value="canada">Canada</option>
+                <option value="mexico">Mexico</option>
+                <option value="other">Other</option>
+            </select><br />
+
+            <!-- hidden field for users to manually enter his/her country if "Other" is chosen from the dropdown list -->
+            <label id="otherCountryLabel" name="otherCountryLabel">Country (Please input your country if your country isn't available from the drop-down list)...</label>
+            <input type="text" id="otherCountry" name="otherCountry" placeholder="Other country..." />
+
+            <label>Subject</label><br />
+            <textarea id="subject" name="subject" placeholder="Please explain your inquiry..." style="height:400px"></textarea>
+
+            <input id="submitContact" type="submit" value="Submit" />
+        </form>
+    </div>
+</aside>
+
+<!-- JavaScript to add a text field for users to enter his/her country if "Other" is chosen from the drop-down list -->
+<script src="request.js"></script>

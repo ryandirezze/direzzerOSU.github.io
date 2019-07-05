@@ -1,0 +1,22 @@
+<!--
+    * Name: Ryan DiRezze
+    * Website: Taborek Treasures
+-->
+
+<!-- add Bootstrap's "Jumbotron" styling -->
+<div class="jumbotron">
+    <h1 class="display-3">Online Marketplace</h1>
+
+    <br />
+
+    <!-- beginning of a list of item/product cards for each item within the store -->
+    {{#each item}}
+    <div class="card">
+        <img src="{{this.image}}" alt="Mason Jar" style="width:100%">
+        <h1>{{this.name}}</h1>
+        <p class="price">${{this.price}}</p>
+        <p>{{this.description}}</p>
+        <p><button>Add to Cart</button></p>
+    </div>
+    {{/each}}
+</div>

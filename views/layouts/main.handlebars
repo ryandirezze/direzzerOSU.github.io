@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+
+<!--
+    * Name: Ryan DiRezze
+    * Website: Taborek Treasures
+    * File Description: Primary / "Core" Website Elements (e.g., Header)
+-->
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+    <title>Taborek Treasures</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Taborek Treasures</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>          
+          
+          <!-- Navbar Dropdown List & Pop-up Modal Display -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="/AboutUs">About Us</a>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <!-- end of Navbar dropdown list -->
+          
+          <!-- condition for when to display the register & logout buttons (e.g., only display the logout button 
+               when the user is logged into his/her account) -->
+               
+          <!-- if the user IS ALREADY logged in, then display the logout button -->
+          {{#if user}}
+              <li>
+                  <a class="nav-link" href="/users/logout">Logout</a>
+              </li>
+
+          <!-- if the user IS NOT logged in, then display the register and login buttons -->
+          {{else}}
+              <li>
+                  <a class="nav-link" href="/users/register">Register</a>
+              </li>
+              <li>
+                  <a class="nav-link" href="/users/login">Login</a>
+              </li>
+          {{/if}}
+          
+          <!-- link to Taborek Treasures' online store -->
+          <li>
+              <a class="nav-link" href="/items/store">Store</a>
+          </li>
+          
+          <!-- link to the (ADMIN) dashboard for managing inventory within the 'Store' -->
+          {{#eq user.role 'admin'}}
+              <li>
+                  <a class="nav-link" href="/users/admindashboard">Admin Dashboard</a>
+              </li>
+          {{/eq}}
+        </ul>
+        
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <main role="main">
+
+    <!-- End of Bootstrap Jumbotron theme's default content -->
+    
+    <!-- handle registering users -->
+    <div class="row" id="registerAlert">
+        <div class="col-lg-12">
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+            {{/if}}
+            
+            {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+            {{/if}}
+            
+            {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
+        </div>
+    </div>
+
+    <!-- body content -->
+    {{{body}}}
+
+    <!-- default Bootstrap JavaScript bundle -->
+    <script src="/js/bootstrap.bundle.js"></script>
+</body>
+
+<!-- jQuery library reference (source: https://www.npmjs.com/package/jquery) -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- JavaScript scripts for sending form data to MongoDB -->
+<!-- <script src="../../public/js/scripts.js"></script> -->
+
+<!-- <script>
+    // send data from client to server
+    // function sendData() {
+    $(document).on('click', '#addItem-button', function () {
+        if (document.getElementById('addItem-name').value != "" && document.getElementById('addItem-description').value != "" && document.getElementById('addItem-price').value != "") { //& document.getElementById('addItem-image').value != "") {
+            var req = new XMLHttpRequest();
+            var payload = { name: null, description: null, price: null }; //, image: null };
+            payload.name = document.getElementById('addItem-name').value;
+            payload.description = document.getElementById('addItem-description').value;
+            payload.price = document.getElementById('addItem-price').value;
+            // payload.image = document.getElementById('addItem-image').value;
+
+            /* send POST request, and receive and process response */
+            req.open('POST', '/additem', true);
+            req.setRequestHeader('Content-Type', 'application/json');
+            
+            // log the payload before sending
+            console.log("\npayload:\n", payload);
+
+            /* process HTTP response from the server */
+            req.addEventListener('load', function () {
+                if (req.status >= 200 && req.status < 400) {
+                    // parse response from the server
+                    var response = JSON.parse(req.responseText);
+                    console.log("\nClient Response: \n", response);
+
+                    // define table row values
+                    var name = response.rows[0].name;
+                    var description = response.rows[0].description;
+                    var price = response.rows[0].price;
+                    // var image = new Date(response.rows[0].image).toISOString().substring(0, 10);  // convert date format
+
+                    /* clear the form's text/input fields */
+                    document.getElementById('addItem-name').value = "";
+                    document.getElementById('addItem-description').value = "";
+                    document.getElementById('addItem-price').value = "";
+                    // document.getElementById('addItem-image').value = "";
+
+                } else {
+                    console.log("Error in network request: " + req.statusText);
+                }
+            });
+            req.send(JSON.stringify(payload));
+
+            /* prevent the web page from reloading after clicking the 'Submit' button */
+            event.preventDefault();
+        }
+    });
+</script> -->
+
+</html>
