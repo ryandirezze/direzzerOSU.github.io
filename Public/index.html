@@ -8,12 +8,12 @@
     <!-- This is a stylesheet that includes the font you should use: Roboto -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css" media="screen">
+    <link rel="stylesheet" href="style.css" media="screen">
 
     <!-- This script incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
     <script src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" defer></script>
 
-    <script src="/index.js" charset="utf-8" defer></script>
+    <script src="index.js" charset="utf-8" defer></script>
 
   </head>
 
@@ -149,6 +149,37 @@
           </p>
         </div>
       </article>
+
+      <!-- Handlebars content -->
+      <script id="Twit-template" type="text/x-handlebars-template">
+         <article class="twit">
+            <div class="twit-icon">
+              <i class="fa fa-bullhorn"></i>
+            </div>
+            <div class="twit-content">
+              <p class="twit-text">
+                {{text}}
+              </p>
+              <p class="twit-attribution">
+                <a href="#">{{author}}</a>
+              </p>
+            </div>
+         </article>
+      </script>
+      <script src="handlebars.js"></script>
+      <script>
+      window.onload = function() {
+         var source = document.getElementById("Twit-template").innerHTML;
+         var template = Handlebars.compile(source);
+         var context =
+           {
+             text: "Sitting in web dev... This class is so awesome!",
+             author: "CSMajor2018"
+           };
+         var output = template(context);
+         document.getElementsByClassName("twit-container").appendChild(output);
+      }
+      </script>
 
     </main>
 
